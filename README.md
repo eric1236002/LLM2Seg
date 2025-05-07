@@ -51,13 +51,13 @@ echo "OPENAI_API_KEY=your_api_key_here" >> .env
 ### Basic Usage
 
 ```bash
-python process_dataset_v3.py --query_dir path/to/query/images --support_dir path/to/support/images --support_json path/to/support_info.json --json_path path/to/dataset_info.json --output_dir path/to/output
+python main.py --query_dir path/to/query/images --support_dir path/to/support/images --support_json path/to/support_info.json --json_path path/to/dataset_info.json --output_dir path/to/output
 ```
 
 ### Advanced Options
 
 ```bash
-python process_dataset_v3.py \
+python main.py \
   --query_dir path/to/query/images \
   --support_dir path/to/support/images \
   --support_json path/to/support_info.json \
@@ -78,7 +78,7 @@ python process_dataset_v3.py \
 #### GPT Mode
 ```bash
 
-python process_dataset_v3.py \
+python main.py \
   --method gpt \
   --query_dir /path/to/query/images \
   --support_dir /path/to/support/images \
@@ -92,7 +92,7 @@ python process_dataset_v3.py \
 
 #### CLIP Mode
 ```bash
-python process_dataset_v3.py \
+python main.py \
   --method clip \
   --query_dir /path/to/query/images \
   --support_dir /path/to/support/images \
@@ -108,7 +108,7 @@ python process_dataset_v3.py \
 
 #### No GPT Mode
 ```bash
-python process_dataset_v3.py \
+python main.py \
   --method no_gpt \
   --query_dir /path/to/query/images \
   --support_dir /path/to/support/images \
@@ -122,7 +122,7 @@ python process_dataset_v3.py \
 
 #### GPT Summary Mode
 ```bash
-python process_dataset_v3.py \
+python main.py \
   --method gpt_summary \
   --query_dir /path/to/query/images \
   --support_dir /path/to/support/images \
@@ -138,7 +138,7 @@ python process_dataset_v3.py \
 
 #### Limiting Images (for testing)
 ```bash
-python process_dataset_v3.py \
+python main.py \
   --method gpt \
   --limit 20 \
   --json_path /path/to/dataset_info.json \
@@ -150,7 +150,7 @@ python process_dataset_v3.py \
 
 #### Single Image Processing
 ```bash
-python process_dataset_v3.py \
+python main.py \
   --image_id 324 \
   --json_path /path/to/dataset_info.json \
   --method gpt \
