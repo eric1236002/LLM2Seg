@@ -1,7 +1,7 @@
 # LLM2Seg
 LLM2Seg: LLM-Guided Few-Shot Object Localization with Visual Transformer
 
-A comprehensive toolkit for detecting and segmenting privacy-sensitive objects in images, including MM Grounding DINO, SAM (Segment Anything Model), and GPT-4 Vision.
+A comprehensive toolkit for detecting and segmenting privacy-sensitive objects in images, including MM Grounding DINO, [SAM](<https://github.com/facebookresearch/segment-anything>) (Segment Anything Model), and GPT-4 Vision.
 
 ## Features
 
