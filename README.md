@@ -1,6 +1,64 @@
 # LLM2Seg
 LLM2Seg: LLM-Guided Few-Shot Object Localization with Visual Transformer
 
+## VizWiz Few-Shot Private Object Localization Challenge
+
+This project is designed to support participation in the [VizWiz Few-Shot Private Object Localization Challenge](https://vizwiz.org/tasks-and-datasets/few-shot-private-object-localization/).
+
+### Challenge Overview
+
+The challenge focuses on locating private objects in images taken by people who are blind, using a few-shot learning approach. The task involves detecting and segmenting 16 categories of private objects using only one sample (1-shot) per category.
+
+### Dataset Description
+
+The dataset is divided into two main parts:
+
+1. **VizWiz-FewShot (Base Classes)**:
+   - 100 non-private categories
+   - 4,229 images
+   - 8,043 annotated instances
+
+2. **BIV-Priv-FewShot (Novel Classes)**:
+   - 16 private categories (used in this project)
+   - 1,072 images
+   - 932 annotated instances
+   - Divided into support set and query set
+
+The competition follows a 1-shot scenario where participants have access to one object sample from each of the 16 private categories in the support set.
+
+### Evaluation Metrics
+
+The challenge has two tracks:
+
+1. **Object Detection**: Results are evaluated using mean Average Precision (mAP) and AP50.
+2. **Instance Segmentation**: Results are evaluated using mean Average Precision (mAP) and AP50.
+
+### Submission Format
+
+Submissions should be in COCO format JSON with the following structure:
+```json
+[
+  {
+   "image_id": 1166,
+   "score": 0.99,
+   "category_id": 115,
+   "area": 892803.0,
+   "bbox": [0, 1010, 1080, 910],
+   "segmentation": [
+     [2.0, 1089.0, 69.0, 1010.0, 489.0, 1070.0, 712.0, 1115.0, 983.0, 1157.0, 1074.0, 1168.0, 1079.0, 1914.0, 0.0, 1919.0]
+   ]
+  }
+]
+```
+
+### Evaluation Server
+
+Results must be submitted to the [EvalAI platform](https://eval.ai/). Different partitions are available:
+- **Query-dev**: 158 images, 10 submissions per day allowed
+- **Query-challenge**: All 1,056 query images, limited submission window
+- **Query-standard**: All 1,056 query images, available year-round
+
+## LLM2Seg
 A comprehensive toolkit for detecting and segmenting privacy-sensitive objects in images, including MM Grounding DINO, [SAM](<https://github.com/facebookresearch/segment-anything>) (Segment Anything Model), and GPT-4 Vision.
 
 ## Features
@@ -34,6 +92,10 @@ Download the following models:
 (https://download.openmmlab.com/mmdetection/v3.0/grounding_dino/groundingdino_swint_ogc_mmdet-822d7e9d.pth)
 - CLIP model: `ViT-B-16.pt`
 
+### Dataset
+
+The dataset is available at [VizWiz](https://vizwiz.org/tasks-and-datasets/few-shot-private-object-localization/).
+
 ## Environment Variables
 
 This project uses environment variables to manage API keys:
@@ -52,11 +114,13 @@ echo "OPENAI_API_KEY=your_api_key_here" >> .env
 
 ```bash
 python main.py --query_dir path/to/query/images --support_dir path/to/support/images --support_json path/to/support_info.json --json_path path/to/dataset_info.json --output_dir path/to/output
+python main.py --query_dir path/to/query/images --support_dir path/to/support/images --support_json path/to/support_info.json --json_path path/to/dataset_info.json --output_dir path/to/output
 ```
 
 ### Advanced Options
 
 ```bash
+python main.py \
 python main.py \
   --query_dir path/to/query/images \
   --support_dir path/to/support/images \
@@ -79,6 +143,7 @@ python main.py \
 ```bash
 
 python main.py \
+python main.py \
   --method gpt \
   --query_dir /path/to/query/images \
   --support_dir /path/to/support/images \
@@ -92,6 +157,7 @@ python main.py \
 
 #### CLIP Mode
 ```bash
+python main.py \
 python main.py \
   --method clip \
   --query_dir /path/to/query/images \
@@ -109,6 +175,7 @@ python main.py \
 #### No GPT Mode
 ```bash
 python main.py \
+python main.py \
   --method no_gpt \
   --query_dir /path/to/query/images \
   --support_dir /path/to/support/images \
@@ -122,6 +189,7 @@ python main.py \
 
 #### GPT Summary Mode
 ```bash
+python main.py \
 python main.py \
   --method gpt_summary \
   --query_dir /path/to/query/images \
@@ -139,6 +207,7 @@ python main.py \
 #### Limiting Images (for testing)
 ```bash
 python main.py \
+python main.py \
   --method gpt \
   --limit 20 \
   --json_path /path/to/dataset_info.json \
@@ -150,6 +219,7 @@ python main.py \
 
 #### Single Image Processing
 ```bash
+python main.py \
 python main.py \
   --image_id 324 \
   --json_path /path/to/dataset_info.json \
@@ -214,6 +284,11 @@ LLM2Seg integrates the following components to perform few-shot object localizat
    4. Segment objects with SAM.
    5. Format results to COCO.
    6. Save visualizations and logs.
+
+
+## Fine-tuning
+
+see [Fine-tuning](https://github.com/open-mmlab/mmdetection/blob/main/configs/grounding_dino/README.md) for more details.
 
 ## Categories
 
